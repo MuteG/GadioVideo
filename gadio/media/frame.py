@@ -74,7 +74,10 @@ class Frame:
                 case '.avif':
                     pil_image = Image.open(image_dir)
                     image = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
-            # print(image_dir)
+                case _:
+                    # If image can't load, then load cover as background
+                    image = cv2.imread(os.sep.join(['cache', str(radio.radio_id), radio.cover.local_name]))
+            print(image_dir)
         image_suffix = page.image.suffix
         background_image = Frame.expand_frame(image, Frame.width, Frame.height)
         background_image = cv2.GaussianBlur(background_image, (255, 255), 255)
